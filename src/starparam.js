@@ -30,6 +30,12 @@
       "(.*)$" // hash
     ).exec(sUrl);
 
+    if (isNil(aMatches)) {
+      return {
+        params: []
+      };
+    }
+
     return {
       prefix: aMatches[1],
       params: aMatches[2].split('&').filter(function(s) {

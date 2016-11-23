@@ -15,6 +15,13 @@ window.starparam_runTests = function() {
     assert.strictEqual(starparam.parse(undefined), undefined, 'undefined arg returns undefined');
   });
 
+  QUnit.test('parse blank url', function(assert) {
+    var oObject = starparam.parse('');
+    assert.strictEqual(oObject.prefix, undefined, 'no prefix');
+    assert.strictEqual(oObject.params.length, 0, 'no params');
+    assert.strictEqual(oObject.hash, undefined, 'no hash present');
+  });
+
   QUnit.test('stringify null/undefined args', function(assert) {
     assert.strictEqual(starparam.stringify(null), undefined, 'null arg returns undefined');
     assert.strictEqual(starparam.stringify(undefined), undefined, 'undefined returns undefined');
