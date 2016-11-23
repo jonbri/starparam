@@ -1,4 +1,5 @@
 QUnit.config.reorder = false;
+starparam.UPDATE_HISTORY = false;
 
 //////////////////////////////////
 // tests

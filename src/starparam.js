@@ -143,41 +143,36 @@
     return _stringify(oUrl);
   }
 
-  function _getBrowserUrl() {
-    // TODO
-    return '';
-  }
-
   function operation(sOperation, aArgs) {
-    var sUrl, sReturnUrl;
+    var sReturnUrl;
 
     switch(sOperation) {
       case 'parse':
         if (aArgs.length === 1) {
           sReturnUrl = _parse(aArgs[0]);
         } else {
-          sReturnUrl = _parse(_getBrowserUrl());
+          sReturnUrl = _parse(window.location.href);
         }
         break;
       case 'get':
         if (aArgs.length === 2) {
           sReturnUrl = _get(aArgs[0], aArgs[1]);
         } else {
-          sReturnUrl = _get(_getBrowserUrl(), aArgs[0]);
+          sReturnUrl = _get(window.location.href, aArgs[0]);
         }
         break;
       case 'add':
         if (aArgs.length === 3) {
           sReturnUrl = _add(aArgs[0], aArgs[1], aArgs[2]);
         } else {
-          sReturnUrl = _add(_getBrowserUrl(), aArgs[0], aArgs[1]);
+          sReturnUrl = _add(window.location.href, aArgs[0], aArgs[1]);
         }
         break;
       case 'remove':
         if (aArgs.length === 2) {
           sReturnUrl = _remove(aArgs[0], aArgs[1]);
         } else {
-          sReturnUrl = _remove(_getBrowserUrl(), aArgs[0]);
+          sReturnUrl = _remove(window.location.href, aArgs[0]);
         }
         break;
     }
@@ -204,11 +199,22 @@
       return operation('get', Array.prototype.slice.call(arguments));
     };
     starparam.add = function() {
-      return operation('add', Array.prototype.slice.call(arguments));
+      var url = operation('add', Array.prototype.slice.call(arguments));
+      if (starparam.UPDATE_HISTORY === true) {
+        window.history.pushState('', '', url);
+      }
+      return url;
     };
     starparam.remove = function() {
-      return operation('remove', Array.prototype.slice.call(arguments));
+      var url = operation('remove', Array.prototype.slice.call(arguments));
+      if (starparam.UPDATE_HISTORY === true) {
+        window.history.pushState('', '', url);
+      }
+      return url;
     };
+
+    // options
+    starparam.UPDATE_HISTORY = true;
 
     window.starparam = starparam;
   }());
