@@ -81,9 +81,9 @@
   }
 
   function _getParamObject(sUrl, sParam) {
-    return _parse(sUrl).params.find(function(oParam) {
+    return _parse(sUrl).params.filter(function(oParam) {
       return oParam.name === sParam;
-    });
+    })[0];
   }
 
   function _get(sUrl, sParam) {
