@@ -90,7 +90,7 @@ By default, functions like `get`, `add` and `remove` will act upon `window.locat
 
 ```
 starparam.get('boo', {
-    url: 'http://localhost?boo=zoo
+    url: 'http://localhost?boo=zoo'
 }) // returns 'zoo'
 ```
 
