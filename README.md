@@ -17,6 +17,8 @@ This module provides utlity functions for managing url parameters.
 
 Load `node_modules/starparam/dist/starparam.min.js`.
 
+Play with StarParam: https://jonbri.github.io/starparam/
+
 
 ## API
 When StarParam is loaded the `starparam` global variable is made available on the `window` object.
