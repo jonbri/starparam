@@ -4,7 +4,7 @@
   "description": "URL parameter utility",
   "scripts": {
     "serve": "http-server -p 9000",
-    "lint": "eslint src/starparam.js",
+    "lint": "eslint starparam.js",
     "test": "npm run lint && node-qunit-phantomjs index.html",
     "package": "bin/package.sh"
   },
