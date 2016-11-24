@@ -41,11 +41,12 @@
       params: aMatches[2].split('&').filter(function(s) {
         return s !== '';
       }).map(function(s) {
-        var aSplit = s.split('=');
-        return {
-          name: aSplit[0],
-          value: aSplit[1]
-        };
+        return (function(aSplit) {
+          return {
+            name: aSplit[0],
+            value: aSplit[1]
+          };
+        }(s.split('=')));
       }),
       hash: aMatches[3] === '' ? undefined : aMatches[3]
     };
