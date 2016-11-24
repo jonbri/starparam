@@ -196,7 +196,7 @@
         sResultUrl = _add(sUrlToOperateOn, sParam, sValue);
 
         // update browser history
-        if (oStarParam.UPDATE_HISTORY === true) {
+        if (oConfig.updateHistory !== false) {
           window.history.pushState('', '', sResultUrl);
         }
 
@@ -221,16 +221,13 @@
         sResultUrl = _remove(sUrlToOperateOn, sParam);
 
         // update browser history
-        if (oStarParam.UPDATE_HISTORY === true) {
+        if (oConfig.updateHistory !== false) {
           window.history.pushState('', '', sResultUrl);
         }
 
         return sResultUrl;
       }
     };
-
-    // options
-    oStarParam.UPDATE_HISTORY = true;
 
     window.starparam = oStarParam;
   }());
