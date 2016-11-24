@@ -1,4 +1,7 @@
 # starparam
+
+[![Build Status](https://travis-ci.org/jonbri/starparam.svg?branch=master)](https://travis-ci.org/jonbri/starparam)
+
 URL Parameter Utility
 
 This module provides utlity functions for managing url parameters.
