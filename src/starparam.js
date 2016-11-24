@@ -143,42 +143,6 @@
     return _stringify(oUrl);
   }
 
-  function operation(sOperation, aArgs) {
-    var sReturnUrl;
-
-    switch(sOperation) {
-      case 'parse':
-        if (aArgs.length === 1) {
-          sReturnUrl = _parse(aArgs[0]);
-        } else {
-          sReturnUrl = _parse(window.location.href);
-        }
-        break;
-      case 'get':
-        if (aArgs.length === 2) {
-          sReturnUrl = _get(aArgs[0], aArgs[1]);
-        } else {
-          sReturnUrl = _get(window.location.href, aArgs[0]);
-        }
-        break;
-      case 'add':
-        if (aArgs.length === 3) {
-          sReturnUrl = _add(aArgs[0], aArgs[1], aArgs[2]);
-        } else {
-          sReturnUrl = _add(window.location.href, aArgs[0], aArgs[1]);
-        }
-        break;
-      case 'remove':
-        if (aArgs.length === 2) {
-          sReturnUrl = _remove(aArgs[0], aArgs[1]);
-        } else {
-          sReturnUrl = _remove(window.location.href, aArgs[0]);
-        }
-        break;
-    }
-
-    return sReturnUrl;
-  }
 
   //////////////////////////////////
   // execution starts
@@ -187,35 +151,87 @@
 
   // expose api to global namespace
   (function() {
-    var starparam = {};
+    var oStarParam = {
+      parse: function(sUrl) {
+        if (arguments.length === 0) {
+          sUrl = window.location.href;
+        }
 
-    starparam.stringify = function(o) {
-      return _stringify(o);
-    };
-    starparam.parse = function() {
-      return operation('parse', Array.prototype.slice.call(arguments));
-    };
-    starparam.get = function() {
-      return operation('get', Array.prototype.slice.call(arguments));
-    };
-    starparam.add = function() {
-      var url = operation('add', Array.prototype.slice.call(arguments));
-      if (starparam.UPDATE_HISTORY === true) {
-        window.history.pushState('', '', url);
+        if (isNil(sUrl)) {
+            return undefined;
+        }
+
+        return _parse(sUrl);
+      },
+
+      stringify: function(oUrl) {
+        return _stringify(oUrl);
+      },
+
+      get: function(sParam, oConfig) {
+        var sUrl;
+        oConfig = oConfig || {};
+        sUrl = oConfig.url;
+        if (isNil(sUrl)) {
+          sUrl = window.location.href;
+        }
+        return _get(sUrl, sParam);
+      },
+
+      add: function(sParam, sValue, oConfig) {
+        var sUrlToOperateOn, sResultUrl;
+        oConfig = oConfig || {};
+
+        // if url not given, query browser
+        sUrlToOperateOn = oConfig.hasOwnProperty('url') ?
+          oConfig.url :
+          window.location.href;
+
+        // if the given url is null or undefined
+        if (isNil(sUrlToOperateOn)) {
+          return undefined;
+        }
+
+        // generate updated url
+        sResultUrl = _add(sUrlToOperateOn, sParam, sValue);
+
+        // update browser history
+        if (oStarParam.UPDATE_HISTORY === true) {
+          window.history.pushState('', '', sResultUrl);
+        }
+
+        return sResultUrl;
+      },
+
+      remove: function(sParam, oConfig) {
+        var sUrlToOperateOn, sResultUrl;
+        oConfig = oConfig || {};
+
+        // if url not given, query browser
+        sUrlToOperateOn = oConfig.hasOwnProperty('url') ?
+          oConfig.url :
+          window.location.href;
+
+        // if the given url is null or undefined
+        if (isNil(sUrlToOperateOn)) {
+          return undefined;
+        }
+
+        // generate updated url
+        sResultUrl = _remove(sUrlToOperateOn, sParam);
+
+        // update browser history
+        if (oStarParam.UPDATE_HISTORY === true) {
+          window.history.pushState('', '', sResultUrl);
+        }
+
+        return sResultUrl;
       }
-      return url;
-    };
-    starparam.remove = function() {
-      var url = operation('remove', Array.prototype.slice.call(arguments));
-      if (starparam.UPDATE_HISTORY === true) {
-        window.history.pushState('', '', url);
-      }
-      return url;
     };
 
     // options
-    starparam.UPDATE_HISTORY = true;
+    oStarParam.UPDATE_HISTORY = true;
 
-    window.starparam = starparam;
+    window.starparam = oStarParam;
   }());
 }());
