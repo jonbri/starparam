@@ -15,7 +15,7 @@ This module provides utlity functions for managing url parameters.
 ## Installation
 `npm install`
 
-Load `node_modules/starparam/dist/starparam.min.js`.
+Load `node_modules/starparam/starparam.min.js`.
 
 Play with StarParam: https://jonbri.github.io/starparam/
 
