@@ -119,113 +119,95 @@ QUnit.module('"set"', {
 
 QUnit.test('null/undefined args', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: null,
-    updateHistory: false
+    url: null
   }), undefined, 'null url returns undefined');
   assert.strictEqual(starparam.set('one', 'two', {
-    url: undefined,
-    updateHistory: false
+    url: undefined
   }), undefined, 'undefined url returns undefined');
 
   assert.strictEqual(starparam.set(null, 'two', {
-    url: 'http://test.com',
-    updateHistory: false
+    url: 'http://test.com'
   }), undefined, 'null param name returns undefined');
   assert.strictEqual(starparam.set(undefined, 'two', {
-    url: 'http://test.com',
-    updateHistory: false
+    url: 'http://test.com'
   }), undefined, 'undefined param name returns undefined');
 });
 
 QUnit.test('null/undefined param value, no match', function(assert) {
   assert.strictEqual(starparam.set('one', null, {
-    url: 'http://test.com',
-    updateHistory: false
+    url: 'http://test.com'
   }), 'http://test.com?one=', 'null param value works');
   assert.strictEqual(starparam.set('one', undefined, {
-    url: 'http://test.com',
-    updateHistory: false
+    url: 'http://test.com'
   }), 'http://test.com?one=', 'undefined param value works');
 });
 
 QUnit.test('null/undefined param value, match', function(assert) {
   assert.strictEqual(starparam.set('one', null, {
-    url: 'http://test.com?one=two',
-    updateHistory: false
+    url: 'http://test.com?one=two'
   }), 'http://test.com?one=', 'null param value replaces correctly');
   assert.strictEqual(starparam.set('one', undefined, {
-    url: 'http://test.com?one=two',
-    updateHistory: false
+    url: 'http://test.com?one=two'
   }), 'http://test.com?one=', 'undefined param value replaces correctly');
 });
 
 QUnit.test('simple', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com',
-    updateHistory: false
+    url: 'http://test.com'
   }), 'http://test.com?one=two', 'basic set works');
 });
 
 QUnit.test('already params (1)', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?foo=bar',
-    updateHistory: false
+    url: 'http://test.com?foo=bar'
   }), 'http://test.com?foo=bar&one=two', 'basic set with already-existing param works');
 });
 
 QUnit.test('already params (2)', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?foo=bar&baz=boo',
-    updateHistory: false
+    url: 'http://test.com?foo=bar&baz=boo'
   }), 'http://test.com?foo=bar&baz=boo&one=two', 'basic set with already-existing params works');
 });
 
 QUnit.test('already exists', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?one=foo',
-    updateHistory: false
+    url: 'http://test.com?one=foo'
   }), 'http://test.com?one=two', 'basic replace works');
 });
 
 QUnit.test('already exists with multiple params (1)', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?foo=bar&one=foo',
-    updateHistory: false
+    url: 'http://test.com?foo=bar&one=foo'
   }), 'http://test.com?foo=bar&one=two', 'basic replace after already-existing param works');
 });
 
 QUnit.test('already exists with multiple params (2)', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?one=foo&foo=bar',
-    updateHistory: false
+    url: 'http://test.com?one=foo&foo=bar'
   }), 'http://test.com?one=two&foo=bar', 'basic replace before already-existing param works');
 });
 
 QUnit.test('already exists with multiple params (3)', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?foo=bar&one=foo&baz=zoo',
-    updateHistory: false
+    url: 'http://test.com?foo=bar&one=foo&baz=zoo'
   }), 'http://test.com?foo=bar&one=two&baz=zoo', 'basic replace in-between already-existing params works');
 });
 
 QUnit.test('simple with hash', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com#hash',
-    updateHistory: false
+    url: 'http://test.com#hash'
   }), 'http://test.com?one=two#hash', 'add param with hash works');
 });
 
 QUnit.test('already params with hash', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?foo=bar#hash',
-    updateHistory: false
+    url: 'http://test.com?foo=bar#hash'
   }), 'http://test.com?foo=bar&one=two#hash', 'add param with hash and already-existing params works ');
 });
 
 QUnit.test('already exists with multiple params with hash', function(assert) {
   assert.strictEqual(starparam.set('one', 'two', {
-    url: 'http://test.com?foo=bar&one=foo&baz=zoo#hash',
-    updateHistory: false
+    url: 'http://test.com?foo=bar&one=foo&baz=zoo#hash'
   }), 'http://test.com?foo=bar&one=two&baz=zoo#hash', 'add param with hash and multiple already-existing params works');
 });
 
@@ -238,68 +220,57 @@ QUnit.module('"remove"', {
 
 QUnit.test('null/undefined args', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: null,
-    updateHistory: false
+    url: null
   }), undefined, 'null url returns undefined');
   assert.strictEqual(starparam.remove('one', {
-    url: undefined,
-    updateHistory: false
+    url: undefined
   }), undefined, 'undefined url returns undefined');
   assert.strictEqual(starparam.remove(null, {
-    url: 'http://test.com?one=two',
-    updateHistory: false
+    url: 'http://test.com?one=two'
   }), 'http://test.com?one=two', 'null param returns url');
   assert.strictEqual(starparam.remove(undefined, {
-    url: 'http://test.com?one=two',
-    updateHistory: false
+    url: 'http://test.com?one=two'
   }), 'http://test.com?one=two', 'undefined param returns url');
 });
 
 QUnit.test('only match arg present', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com?one=two',
-    updateHistory: false
+    url: 'http://test.com?one=two'
   }), 'http://test.com', 'remove param works');
 });
 
 QUnit.test('other args present and after', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com?one=two&three=four',
-    updateHistory: false
+    url: 'http://test.com?one=two&three=four'
   }), 'http://test.com?three=four', 'remove param with other param after works');
 });
 
 QUnit.test('other args present and before', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com?three=four&one=two',
-    updateHistory: false
+    url: 'http://test.com?three=four&one=two'
   }), 'http://test.com?three=four', 'remove param with other param before works');
 });
 
 QUnit.test('only match arg present with hash', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com?one=two#hash',
-    updateHistory: false
+    url: 'http://test.com?one=two#hash'
   }), 'http://test.com#hash', 'remove param with hash works');
 });
 
 QUnit.test('other args present and before with hash', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com?three=four&one=two#hash',
-    updateHistory: false
+    url: 'http://test.com?three=four&one=two#hash'
   }), 'http://test.com?three=four#hash', 'remove param with other params present works');
 });
 
 QUnit.test('no match', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com',
-    updateHistory: false
+    url: 'http://test.com'
   }), 'http://test.com', 'no match returns unmodified url');
 });
 
 QUnit.test('no match and other params present', function(assert) {
   assert.strictEqual(starparam.remove('one', {
-    url: 'http://test.com?foo=bar',
-    updateHistory: false
+    url: 'http://test.com?foo=bar'
   }), 'http://test.com?foo=bar', 'no match with other params returns unmodified url');
 });
