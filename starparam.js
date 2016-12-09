@@ -196,11 +196,6 @@
         // generate updated url
         sResultUrl = _add(sUrlToOperateOn, sParam, sValue);
 
-        // update browser history
-        if (oConfig.updateHistory !== false) {
-          window.history.pushState('', '', sResultUrl);
-        }
-
         return sResultUrl;
       },
 
@@ -220,11 +215,6 @@
 
         // generate updated url
         sResultUrl = _remove(sUrlToOperateOn, sParam);
-
-        // update browser history
-        if (oConfig.updateHistory !== false) {
-          window.history.pushState('', '', sResultUrl);
-        }
 
         return sResultUrl;
       }

@@ -68,7 +68,8 @@ var addButton = document.querySelectorAll('#add>button')[0],
   removeInputName = document.querySelectorAll('#remove>input')[0];
 
 addButton.onclick = function() {
-  starparam.add(addInputName.value, addInputValue.value);
+  var sUrl = starparam.add(addInputName.value, addInputValue.value);
+  window.history.pushState('', '', sUrl);
   updateRemoveOptions();
 };
 
@@ -81,7 +82,8 @@ addRandomButton.onclick = function() {
 };
 
 removeButton.onclick = function() {
-  starparam.remove(removeInputName.value);
+  var sUrl = starparam.remove(removeInputName.value);
+  window.history.pushState('', '', sUrl);
   updateRemoveOptions();
 };
 
@@ -92,7 +94,8 @@ function updateRemoveOptions() {
     var button = document.createElement('button');
     button.innerHTML = 'Remove "' + oParam.name + '"';
     button.onclick = function() {
-      starparam.remove(oParam.name);
+      var sUrl = starparam.remove(oParam.name);
+      window.history.pushState('', '', sUrl);
       updateRemoveOptions();
     };
     removeContainer.appendChild(button);

@@ -6,9 +6,10 @@ URL Parameter Utility
 
 This module provides utlity functions for managing url parameters.
 
-* update `window.history`
+Only string operations occur...changes to `window.history` are left to the consumer.
+
 * add/replace url parameter
-* remove parameter
+* remove url parameter
 * parse/stringify object representing url
 
 
@@ -35,7 +36,7 @@ starparam.get('foo') // returns 'bar'
 ```
 
 ### add
-Add a parameter to the url.
+Generate a url string with a parameter added.
 
 ```
 // url is http://localhost?foo=bar
@@ -48,7 +49,7 @@ starparam.add('baz', 'ZOO');
 ```
 
 ### remove
-Remove a parameter from the url.
+Generate a url string with a parameter removed.
 
 ```
 // url is http://localhost?foo=bar
@@ -92,17 +93,6 @@ By default, functions like `get`, `add` and `remove` will act upon `window.locat
 starparam.get('boo', {
     url: 'http://localhost?boo=zoo'
 }) // returns 'zoo'
-```
-
-### updateHistory
-Specify if `window.history.pushState` should be updated.
-```
-// url is http://localhost
-starparam.add('boo', 'zoo', {
-    updateHistory: false
-});
-// returns 'http://localhost?boo=zoo',
-// but doesn't actually update the browser's url
 ```
 
 ## License
