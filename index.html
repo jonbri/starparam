@@ -30,11 +30,11 @@
 <body>
   <h1><a href="./">StarParam</a></h1>
 
-  <section id="add">
-    <h2>Add URL Parameters</h2>
+  <section id="set">
+    <h2>Set URL Parameters</h2>
     <input value="foo" />
     <input value="bar" />
-    <button>add</button>
+    <button>set</button>
     <button>random</button>
   </section>
 
@@ -60,25 +60,25 @@ var aRandomWords = [
   'john', 'jane', 'phil'
 ];
 
-var addButton = document.querySelectorAll('#add>button')[0],
-  addRandomButton = document.querySelectorAll('#add>button')[1],
-  addInputName = document.querySelectorAll('#add>input')[0],
-  addInputValue = document.querySelectorAll('#add>input')[1],
+var setButton = document.querySelectorAll('#set>button')[0],
+  setRandomButton = document.querySelectorAll('#set>button')[1],
+  setInputName = document.querySelectorAll('#set>input')[0],
+  setInputValue = document.querySelectorAll('#set>input')[1],
   removeButton = document.querySelector('#remove>button'),
   removeInputName = document.querySelectorAll('#remove>input')[0];
 
-addButton.onclick = function() {
-  var sUrl = starparam.add(addInputName.value, addInputValue.value);
+setButton.onclick = function() {
+  var sUrl = starparam.set(setInputName.value, setInputValue.value);
   window.history.pushState('', '', sUrl);
   updateRemoveOptions();
 };
 
-addRandomButton.onclick = function() {
+setRandomButton.onclick = function() {
   function getRandomWord() {
     return aRandomWords[Math.floor(Math.random() * (aRandomWords.length-1)) + 1];
   }
-  addInputName.value = getRandomWord();
-  addInputValue.value = getRandomWord();
+  setInputName.value = getRandomWord();
+  setInputValue.value = getRandomWord();
 };
 
 removeButton.onclick = function() {
