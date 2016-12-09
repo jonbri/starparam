@@ -96,7 +96,7 @@
     return isNil(oMatch) ? undefined : oMatch.value;
   }
 
-  function _add(sUrl, sParam, sValue) {
+  function _set(sUrl, sParam, sValue) {
     var oUrl;
 
     if (isNil(sUrl) || isNil(sParam)) {
@@ -179,7 +179,7 @@
         return _get(sUrl, sParam);
       },
 
-      add: function(sParam, sValue, oConfig) {
+      set: function(sParam, sValue, oConfig) {
         var sUrlToOperateOn, sResultUrl;
         oConfig = oConfig || {};
 
@@ -194,7 +194,7 @@
         }
 
         // generate updated url
-        sResultUrl = _add(sUrlToOperateOn, sParam, sValue);
+        sResultUrl = _set(sUrlToOperateOn, sParam, sValue);
 
         return sResultUrl;
       },

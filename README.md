@@ -35,16 +35,16 @@ Get the value of a url parameter.
 starparam.get('foo') // returns 'bar'
 ```
 
-### add
-Generate a url string with a parameter added.
+### set
+Generate a url string with a parameter added/updated.
 
 ```
 // url is http://localhost?foo=bar
 
-starparam.add('baz', 'zoo');
+starparam.set('baz', 'zoo');
 // url is now http://localhost?foo=bar&baz=zoo
 
-starparam.add('baz', 'ZOO');
+starparam.set('baz', 'ZOO');
 // url is now http://localhost?foo=bar&baz=ZOO
 ```
 
@@ -87,7 +87,7 @@ starparam.stringify(aUrl) // 'http://localhost?foo=bar'
 API functions take a config object as their last parameter for invocation flexibility.
 
 ### url
-By default, functions like `get`, `add` and `remove` will act upon `window.location.href`, but a custom url can be passed-in.
+By default, functions like `get`, `set` and `remove` will act upon `window.location.href`, but a custom url can be passed-in.
 
 ```
 starparam.get('boo', {
