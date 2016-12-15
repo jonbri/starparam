@@ -64,12 +64,12 @@ Parse the url, breaking it up into a simple representative object.
 ```
 // url is http://localhost?foo=bar#one
 
-var aUrl = starparam.parse();
-aUrl.prefix          // 'http://localhost'
-aUrl.params          // array of simple param objects
-aUrl.params[0].name  // 'foo'
-aUrl.params[0].value // 'bar'
-aUrl.hash            // 'one'
+var oUrl = starparam.parse();
+oUrl.prefix          // 'http://localhost'
+oUrl.params          // array of simple param objects
+oUrl.params[0].name  // 'foo'
+oUrl.params[0].value // 'bar'
+oUrl.hash            // 'one'
 ```
 
 ### stringify
