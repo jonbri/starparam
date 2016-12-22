@@ -220,6 +220,12 @@
       }
     };
 
-    window.starparam = oStarParam;
+    // support for embedding starparam within other modules
+    // and not setting the global `starparam` reference
+    if (window.__is_starparam_embedded === true) {
+      window.__embedded_starparam = oStarParam;
+    } else {
+      window.starparam = oStarParam;
+    }
   }());
 }());
