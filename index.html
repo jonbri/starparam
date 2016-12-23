@@ -30,11 +30,11 @@
 <body>
   <h1><a href="./">StarParam</a></h1>
 
-  <section id="add">
-    <h2>Add URL Parameters</h2>
+  <section id="set">
+    <h2>Set URL Parameters</h2>
     <input value="foo" />
     <input value="bar" />
-    <button>add</button>
+    <button>set</button>
     <button>random</button>
   </section>
 
@@ -51,8 +51,8 @@
   <a href="https://github.com/jonbri/starparam">https://github.com/jonbri/starparam</a>
 
   <script>
-/* https://github.com/jonbri/starparam v0.1.0 Thu Nov 24 12:02:40 EST 2016 */
-!function(){function r(r){return null===r||void 0===r}function n(n){var t;if(!r(n))return t=new RegExp("(^[^?&#]+)\\??([^#]*)#?(.*)$").exec(n),r(t)?{params:[]}:{prefix:t[1],params:t[2].split("&").filter(function(r){return""!==r}).map(function(r){return function(r){return{name:r[0],value:r[1]}}(r.split("="))}),hash:""===t[3]?void 0:t[3]}}function t(n){var t="";if(!r(n))return r(n.prefix)===!1&&(t+=n.prefix),r(n.params)===!1&&n.params.forEach(function(r,n){t+=0===n?"?":"&",t+=r.name+"="+r.value}),r(n.hash)===!1&&(t+="#"+n.hash),t}function a(r,t){return n(r).params.filter(function(r){return r.name===t})[0]}function i(n,t){var i;if(!r(n)&&!r(t))return i=a(n,t),r(i)?void 0:i.value}function u(i,u,e){var o;if(!r(i)&&!r(u))return r(e)&&(e=""),o=n(i),r(a(i,u))?o.params.push({name:u,value:e}):o.params=o.params.map(function(r){return r.name===u&&(r.value=e),r}),t(o)}function e(a,i){var u;if(!r(a))return r(i)?a:(u=n(a),u.params=u.params.filter(function(r){return r.name!==i}),t(u))}!function(){var a={parse:function(t){if(0===arguments.length&&(t=window.location.href),!r(t))return n(t)},stringify:function(r){return t(r)},get:function(n,t){var a;return t=t||{},a=t.url,r(a)&&(a=window.location.href),i(a,n)},add:function(n,t,a){var i,e;if(a=a||{},i=a.hasOwnProperty("url")?a.url:window.location.href,!r(i))return e=u(i,n,t),a.updateHistory!==!1&&window.history.pushState("","",e),e},remove:function(n,t){var a,i;if(t=t||{},a=t.hasOwnProperty("url")?t.url:window.location.href,!r(a))return i=e(a,n),t.updateHistory!==!1&&window.history.pushState("","",i),i}};window.starparam=a}()}();
+  /* https://github.com/jonbri/starparam v1.0.1 Thu Dec 22 13:41:34 EST 2016 */
+  !function(){function r(r){return null===r||void 0===r}function n(n){var a;if(!r(n))return a=new RegExp("(^[^?&#]+)\\??([^#]*)#?(.*)$").exec(n),r(a)?{params:[]}:{prefix:a[1],params:a[2].split("&").filter(function(r){return""!==r}).map(function(r){return function(r){return{name:r[0],value:r[1]}}(r.split("="))}),hash:""===a[3]?void 0:a[3]}}function a(n){var a="";if(!r(n))return r(n.prefix)===!1&&(a+=n.prefix),r(n.params)===!1&&n.params.forEach(function(r,n){a+=0===n?"?":"&",a+=r.name+"="+r.value}),r(n.hash)===!1&&(a+="#"+n.hash),a}function e(r,a){return n(r).params.filter(function(r){return r.name===a})[0]}function t(n,a){var t;if(!r(n)&&!r(a))return t=e(n,a),r(t)?void 0:t.value}function i(t,i,u){var o;if(!r(t)&&!r(i))return r(u)&&(u=""),o=n(t),r(e(t,i))?o.params.push({name:i,value:u}):o.params=o.params.map(function(r){return r.name===i&&(r.value=u),r}),a(o)}function u(e,t){var i;if(!r(e))return r(t)?e:(i=n(e),i.params=i.params.filter(function(r){return r.name!==t}),a(i))}!function(){var e={parse:function(a){if(0===arguments.length&&(a=window.location.href),!r(a))return n(a)},stringify:function(r){return a(r)},get:function(n,a){var e;return a=a||{},e=a.url,r(e)&&(e=window.location.href),t(e,n)},set:function(n,a,e){var t,u;if(e=e||{},t=e.hasOwnProperty("url")?e.url:window.location.href,!r(t))return u=i(t,n,a)},remove:function(n,a){var e,t;if(a=a||{},e=a.hasOwnProperty("url")?a.url:window.location.href,!r(e))return t=u(e,n)}};window.__is_starparam_embedded===!0?window.__embedded_starparam=e:window.starparam=e}()}();
   </script>
 
 <script>
@@ -63,28 +63,30 @@ var aRandomWords = [
   'john', 'jane', 'phil'
 ];
 
-var addButton = document.querySelectorAll('#add>button')[0],
-  addRandomButton = document.querySelectorAll('#add>button')[1],
-  addInputName = document.querySelectorAll('#add>input')[0],
-  addInputValue = document.querySelectorAll('#add>input')[1],
+var setButton = document.querySelectorAll('#set>button')[0],
+  setRandomButton = document.querySelectorAll('#set>button')[1],
+  setInputName = document.querySelectorAll('#set>input')[0],
+  setInputValue = document.querySelectorAll('#set>input')[1],
   removeButton = document.querySelector('#remove>button'),
   removeInputName = document.querySelectorAll('#remove>input')[0];
 
-addButton.onclick = function() {
-  starparam.add(addInputName.value, addInputValue.value);
+setButton.onclick = function() {
+  var sUrl = starparam.set(setInputName.value, setInputValue.value);
+  window.history.pushState('', '', sUrl);
   updateRemoveOptions();
 };
 
-addRandomButton.onclick = function() {
+setRandomButton.onclick = function() {
   function getRandomWord() {
     return aRandomWords[Math.floor(Math.random() * (aRandomWords.length-1)) + 1];
   }
-  addInputName.value = getRandomWord();
-  addInputValue.value = getRandomWord();
+  setInputName.value = getRandomWord();
+  setInputValue.value = getRandomWord();
 };
 
 removeButton.onclick = function() {
-  starparam.remove(removeInputName.value);
+  var sUrl = starparam.remove(removeInputName.value);
+  window.history.pushState('', '', sUrl);
   updateRemoveOptions();
 };
 
@@ -95,7 +97,8 @@ function updateRemoveOptions() {
     var button = document.createElement('button');
     button.innerHTML = 'Remove "' + oParam.name + '"';
     button.onclick = function() {
-      starparam.remove(oParam.name);
+      var sUrl = starparam.remove(oParam.name);
+      window.history.pushState('', '', sUrl);
       updateRemoveOptions();
     };
     removeContainer.appendChild(button);
