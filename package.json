@@ -3,7 +3,7 @@
   "version": "2.0.2",
   "description": "URL parameter utility",
   "scripts": {
-    "lint": "eslint index.js",
+    "lint": "eslint *.js",
     "test": "npm run lint && babel-tape-runner test.js | faucet"
   },
   "repository": {
