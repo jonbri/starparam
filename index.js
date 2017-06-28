@@ -14,13 +14,11 @@ function isNil(s) {
 }
 
 function _parse(sUrl) {
-  var aMatches;
-
   if (isNil(sUrl)) {
     return undefined;
   }
 
-  aMatches = new RegExp(
+  const aMatches = new RegExp(
     '(^[^?&#]+)' + // prefix
     '\\??' +
     '([^#]*)' + // params
@@ -36,22 +34,17 @@ function _parse(sUrl) {
 
   return {
     prefix: aMatches[1],
-    params: aMatches[2].split('&').filter(function(s) {
-      return s !== '';
-    }).map(function(s) {
-      return (function(aSplit) {
-        return {
-          name: aSplit[0],
-          value: aSplit[1]
-        };
-      }(s.split('=')));
-    }),
+    params: aMatches[2]
+      .split('&')
+      .filter(s => s !== '')
+      .map(s => s.split('='))
+      .map(a => ({ name: a[0], value: a[1] })),
     hash: aMatches[3] === '' ? undefined : aMatches[3]
   };
 }
 
 function _stringify(o) {
-  var sResult = '';
+  let sResult = '';
 
   if (isNil(o)) {
     return undefined;
@@ -62,7 +55,7 @@ function _stringify(o) {
   }
 
   if (isNil(o.params) === false) {
-    o.params.forEach(function(oParam, iIndex) {
+    o.params.forEach((oParam, iIndex) => {
       if (iIndex === 0) {
         sResult += '?';
       } else {
@@ -80,23 +73,18 @@ function _stringify(o) {
 }
 
 function _getParamObject(sUrl, sParam) {
-  return _parse(sUrl).params.filter(function(oParam) {
-    return oParam.name === sParam;
-  })[0];
+  return _parse(sUrl).params.filter(oParam => oParam.name === sParam)[0];
 }
 
 function _get(sUrl, sParam) {
-  var oMatch;
   if (isNil(sUrl) || isNil(sParam)) {
     return undefined;
   }
-  oMatch = _getParamObject(sUrl, sParam);
+  const oMatch = _getParamObject(sUrl, sParam);
   return isNil(oMatch) ? undefined : oMatch.value;
 }
 
 function _set(sUrl, sParam, sValue) {
-  var oUrl;
-
   if (isNil(sUrl) || isNil(sParam)) {
     return undefined;
   }
@@ -104,7 +92,7 @@ function _set(sUrl, sParam, sValue) {
     sValue = '';
   }
 
-  oUrl = _parse(sUrl);
+  const oUrl = _parse(sUrl);
 
   if (isNil(_getParamObject(sUrl, sParam))) {
     oUrl.params.push({
@@ -112,7 +100,7 @@ function _set(sUrl, sParam, sValue) {
       value: sValue
     });
   } else {
-    oUrl.params = oUrl.params.map(function(oParam) {
+    oUrl.params = oUrl.params.map(oParam => {
       if (oParam.name === sParam) {
         oParam.value = sValue;
       }
@@ -124,8 +112,6 @@ function _set(sUrl, sParam, sValue) {
 }
 
 function _remove(sUrl, sParam) {
-  var oUrl;
-
   if (isNil(sUrl)) {
     return undefined;
   }
@@ -133,11 +119,8 @@ function _remove(sUrl, sParam) {
     return sUrl;
   }
 
-  oUrl = _parse(sUrl);
-
-  oUrl.params = oUrl.params.filter(function(oParam) {
-    return oParam.name !== sParam;
-  });
+  const oUrl = _parse(sUrl);
+  oUrl.params = oUrl.params.filter(oParam => oParam.name !== sParam);
 
   return _stringify(oUrl);
 }
@@ -150,32 +133,9 @@ function _remove(sUrl, sParam) {
 
 // expose api to global namespace
 module.exports = {
-  parse: function(sUrl) {
-    if (isNil(sUrl)) {
-      return undefined;
-    }
-    return _parse(sUrl);
-  },
-
-  stringify: function(oUrl) {
-    return _stringify(oUrl);
-  },
-
-  get: function(sUrl, sParam) {
-    return _get(sUrl, sParam);
-  },
-
-  set: function(sUrl, sParam, sValue) {
-    if (isNil(sUrl)) {
-      return undefined;
-    }
-    return _set(sUrl, sParam, sValue);
-  },
-
-  remove: function(sUrl, sParam) {
-    if (isNil(sUrl)) {
-      return undefined;
-    }
-    return _remove(sUrl, sParam);
-  }
+  parse: _parse,
+  stringify: _stringify,
+  get: _get,
+  set: _set,
+  remove: _remove
 };
