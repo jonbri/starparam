@@ -17,7 +17,7 @@ Only string operations occur...changes to `window.history` are left to the consu
 `npm install --save-dev starparam`
 
 ```
-import starparam from './starparam';
+import starparam from 'starparam';
 ```
 
 ## API
