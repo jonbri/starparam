@@ -6,11 +6,11 @@ URL Parameter Utility
 
 This module provides utility functions for managing url parameters.
 
-Only string operations occur...changes to `window.history` are left to the consumer.
-
 * add/replace url parameter
 * remove url parameter
 * parse/stringify object representing url
+
+Only string operations are supported, changes to `window.history` are left to the consumer.
 
 
 ## Installation
@@ -60,6 +60,7 @@ Convert from a starparam url object into a url string (the inverse of `parse`).
 ```
 starparam.stringify(starparam.parse('http://localhost?foo=bar')) // returns string: 'http://localhost?foo=bar'
 ```
+
 
 ## License
 [BSD-2-Clause](http://spdx.org/licenses/BSD-2-Clause)
